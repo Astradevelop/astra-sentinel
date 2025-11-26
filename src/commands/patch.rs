@@ -1,0 +1,16 @@
+use crate::astra_client::AstraClient;
+use anyhow::Result;
+
+pub async fn cmd_patch(
+    client: &AstraClient,
+    system_prompt: Option<String>,
+    user_prompt: Option<String>,
+) -> Result<()> {
+    let system = system_prompt.unwrap_or_default();
+    let user   = user_prompt.unwrap_or_default();
+
+    let resp = client.chat(&system, &user).await?;
+    println!("{}", resp);
+
+    Ok(())
+}
